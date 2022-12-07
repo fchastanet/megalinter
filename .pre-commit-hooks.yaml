@@ -1,20 +1,8 @@
 - id: megalinter-incremental
   name: Run MegaLinter (skipping linters that run in project mode)
-  entry: npx --
   language: system
   require_serial: true
-  args:
-    - mega-linter-runner
-    - --containername megalinter-incremental
-    - --remove-container
-    - --fix
-    - --env
-    - "'APPLY_FIXES=all'"
-    - --env
-    - "'CLEAR_REPORT_FOLDER=true'"
-    - --env
-    - "'LOG_LEVEL=warning'"
-    - --filesonly
+  entry: npx mega-linter-runner --containername megalinter-incremental --remove-container --fix --env "'APPLY_FIXES=all'" --env "'CLEAR_REPORT_FOLDER=true'" --env "'LOG_LEVEL=warning'" --filesonly
   description: >
     See https://megalinter.io/latest/mega-linter-runner/#usage
     and https://megalinter.io/latest/configuration/ if you
@@ -27,23 +15,14 @@
     https://github.com/marketplace/actions/rootless-docker/). Linter results are
     logged to the megalinter-reports directory, so list it in your .gitignore.
     Skip linters that run in project mode since they don't run incrementally.
+    You can override parameters by using args key. eg: 
+    args: [--flavor, terraform]
 
 - id: megalinter-full
   name: Run MegaLinter
-  entry: npx --
+  entry: npx mega-linter-runner --containername megalinter-full --remove-container --fix --env "'APPLY_FIXES=all'" --env "'CLEAR_REPORT_FOLDER=true'" --env "'LOG_LEVEL=warning'"
   language: system
   require_serial: true
-  args:
-    - mega-linter-runner
-    - --containername megalinter-full
-    - --remove-container
-    - --fix
-    - --env
-    - "'APPLY_FIXES=all'"
-    - --env
-    - "'CLEAR_REPORT_FOLDER=true'"
-    - --env
-    - "'LOG_LEVEL=warning'"
   description: >
     See https://megalinter.io/latest/mega-linter-runner/#usage
     and https://megalinter.io/latest/configuration/ if you
@@ -55,3 +34,5 @@
     encounter permission errors, try running Docker in rootless mode (c.f.,
     https://github.com/marketplace/actions/rootless-docker/). Linter results are
     logged to the megalinter-reports directory, so list it in your .gitignore.
+    You can override parameters by using args key. eg: 
+    args: [--flavor, terraform]
